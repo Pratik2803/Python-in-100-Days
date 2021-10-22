@@ -22,6 +22,10 @@ class Scoreboard(Turtle):
         self.clear()
         self.write(f"Score: {self.counter}", align=ALIGNMENT, font=FONT)
 
+    def game_over(self):
+        self.goto(0,0)
+        self.write(f"Game Over.", align=ALIGNMENT, font=FONT)
+
     def update_scoreboard(self):
         self.counter = self.counter + 1
         self.scoreboard_text()

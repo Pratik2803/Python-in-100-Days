@@ -14,18 +14,28 @@ class Scoreboard(Turtle):
         self.penup()
         self.speed('fastest')
         self.hideturtle()
-        self.counter = 0
+        self.current_score = 0
+        self.high_score = 0
         self.goto(x=SCOREBOARD_XCOR, y=SCOREBOARD_YCOR)
+
+        self.get_highest_score()
         self.scoreboard_text()
+
+    def get_highest_score(self):
+        with open(file='./highest_score.txt', mode='r', encoding='utf-8') as f:
+            self.high_score = f.read()
 
     def scoreboard_text(self):
         self.clear()
-        self.write(f"Score: {self.counter}", align=ALIGNMENT, font=FONT)
+        self.write(f"Score: {self.current_score}  High Score: {self.high_score}", align=ALIGNMENT, font=FONT)
 
-    def game_over(self):
-        self.goto(0,0)
-        self.write(f"Game Over.", align=ALIGNMENT, font=FONT)
+    def scoreboard_reset(self):
+        if int(self.high_score) < self.current_score:
+            with open(file='./highest_score.txt', mode='w', encoding='utf-8') as f:
+                f.write(str(self.current_score))
+
+        self.scoreboard_text()
 
     def update_scoreboard(self):
-        self.counter = self.counter + 1
+        self.current_score = self.current_score + 1
         self.scoreboard_text()

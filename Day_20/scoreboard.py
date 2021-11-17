@@ -23,14 +23,14 @@ class Scoreboard(Turtle):
 
     def get_highest_score(self):
         with open(file='./highest_score.txt', mode='r', encoding='utf-8') as f:
-            self.high_score = f.read()
+            self.high_score = int(f.read())
 
     def scoreboard_text(self):
         self.clear()
         self.write(f"Score: {self.current_score}  High Score: {self.high_score}", align=ALIGNMENT, font=FONT)
 
     def scoreboard_reset(self):
-        if int(self.high_score) < self.current_score:
+        if self.high_score < self.current_score:
             with open(file='./highest_score.txt', mode='w', encoding='utf-8') as f:
                 f.write(str(self.current_score))
 
